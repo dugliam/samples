@@ -1,6 +1,6 @@
 #include <stdio.h>
-#include <cuda.h>
-// #include <nvml.h>
+// #include <cuda.h>
+#include <nvml.h>
 
 int main() { 
 
