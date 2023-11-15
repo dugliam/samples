@@ -1,0 +1,66 @@
+#ifndef CUFFTDX_FFT_6_FP64_FWD_PTX_HPP
+#define CUFFTDX_FFT_6_FP64_FWD_PTX_HPP
+
+
+
+template<> __forceinline__ __device__ void cufftdx_private_function<585, double, 1>(cufftdx::detail::complex<double> *rmem, void *smem){
+
+asm volatile ("{\n\t"
+    ".reg .f64 fd<75>;\n\t"
+    ".reg .b64 rd<2>;\n\t"
+    "add.f64 fd25, %18, %23;\n\t"
+    "add.f64 fd26, %13, fd25;\n\t"
+    "add.f64 fd27, %20, %25;\n\t"
+    "add.f64 fd28, %14, fd27;\n\t"
+    "fma.rn.f64 fd29, fd25, 0dBFE0000000000000, %13;\n\t"
+    "sub.f64 fd30, %20, %25;\n\t"
+    "mul.f64 fd31, fd30, 0d3FEBB67AE8584CAA;\n\t"
+    "add.f64 fd32, fd31, fd29;\n\t"
+    "sub.f64 fd33, fd29, fd31;\n\t"
+    "fma.rn.f64 fd34, fd27, 0dBFE0000000000000, %14;\n\t"
+    "sub.f64 fd35, %18, %23;\n\t"
+    "mul.f64 fd36, fd35, 0d3FEBB67AE8584CAA;\n\t"
+    "sub.f64 fd37, fd34, fd36;\n\t"
+    "add.f64 fd38, fd36, fd34;\n\t"
+    "add.f64 fd39, %21, %26;\n\t"
+    "add.f64 fd40, %15, fd39;\n\t"
+    "add.f64 fd41, %22, %27;\n\t"
+    "add.f64 fd42, %17, fd41;\n\t"
+    "fma.rn.f64 fd43, fd39, 0dBFE0000000000000, %15;\n\t"
+    "sub.f64 fd44, %22, %27;\n\t"
+    "mul.f64 fd45, fd44, 0d3FEBB67AE8584CAA;\n\t"
+    "add.f64 fd46, fd45, fd43;\n\t"
+    "sub.f64 fd47, fd43, fd45;\n\t"
+    "fma.rn.f64 fd48, fd41, 0dBFE0000000000000, %17;\n\t"
+    "sub.f64 fd49, %21, %26;\n\t"
+    "mul.f64 fd50, fd49, 0d3FEBB67AE8584CAA;\n\t"
+    "sub.f64 fd51, fd48, fd50;\n\t"
+    "add.f64 fd52, fd50, fd48;\n\t"
+    "mul.f64 fd53, fd46, 0d3FE0000000000000;\n\t"
+    "mul.f64 fd54, fd51, 0dBFEBB67AE8584CAA;\n\t"
+    "sub.f64 fd55, fd53, fd54;\n\t"
+    "mul.f64 fd56, fd51, 0d3FE0000000000000;\n\t"
+    "fma.rn.f64 fd57, fd46, 0dBFEBB67AE8584CAA, fd56;\n\t"
+    "mul.f64 fd58, fd47, 0dBFE0000000000000;\n\t"
+    "mul.f64 fd59, fd52, 0dBFEBB67AE8584CAA;\n\t"
+    "sub.f64 fd60, fd58, fd59;\n\t"
+    "mul.f64 fd61, fd52, 0dBFE0000000000000;\n\t"
+    "fma.rn.f64 fd62, fd47, 0dBFEBB67AE8584CAA, fd61;\n\t"
+    "add.f64 %1, fd28, fd42;\n\t"
+    "add.f64 %0, fd26, fd40;\n\t"
+    "add.f64 %3, fd37, fd57;\n\t"
+    "add.f64 %2, fd32, fd55;\n\t"
+    "add.f64 %5, fd38, fd62;\n\t"
+    "add.f64 %4, fd33, fd60;\n\t"
+    "sub.f64 %7, fd28, fd42;\n\t"
+    "sub.f64 %6, fd26, fd40;\n\t"
+    "sub.f64 %9, fd37, fd57;\n\t"
+    "sub.f64 %8, fd32, fd55;\n\t"
+    "sub.f64 %11, fd38, fd62;\n\t"
+    "sub.f64 %10, fd33, fd60;\n\t"
+    "}"
+     : "=d"(rmem[0].x), "=d"(rmem[0].y), "=d"(rmem[1].x), "=d"(rmem[1].y), "=d"(rmem[2].x), "=d"(rmem[2].y), "=d"(rmem[3].x), "=d"(rmem[3].y), "=d"(rmem[4].x), "=d"(rmem[4].y), "=d"(rmem[5].x), "=d"(rmem[5].y): "l"(smem), "d"(rmem[0].x), "d"(rmem[0].y), "d"(rmem[1].x), "d"(rmem[1].y), "d"(rmem[1].y), "d"(rmem[2].x), "d"(rmem[2].y), "d"(rmem[2].y), "d"(rmem[3].x), "d"(rmem[3].y), "d"(rmem[4].x), "d"(rmem[4].y), "d"(rmem[4].y), "d"(rmem[5].x), "d"(rmem[5].y));
+};
+
+
+#endif

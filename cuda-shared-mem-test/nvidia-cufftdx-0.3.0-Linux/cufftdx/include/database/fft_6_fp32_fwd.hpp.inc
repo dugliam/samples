@@ -1,0 +1,66 @@
+#ifndef CUFFTDX_FFT_6_FP32_FWD_PTX_HPP
+#define CUFFTDX_FFT_6_FP32_FWD_PTX_HPP
+
+
+
+template<> __forceinline__ __device__ void cufftdx_private_function<201, float, 1>(cufftdx::detail::complex<float> *rmem, void *smem){
+
+asm volatile ("{\n\t"
+    ".reg .f32 f<75>;\n\t"
+    ".reg .b64 rd<2>;\n\t"
+    "add.f32 f25, %18, %23;\n\t"
+    "add.f32 f26, %13, f25;\n\t"
+    "add.f32 f27, %20, %25;\n\t"
+    "add.f32 f28, %14, f27;\n\t"
+    "fma.rn.f32 f29, f25, 0fBF000000, %13;\n\t"
+    "sub.f32 f30, %20, %25;\n\t"
+    "mul.f32 f31, f30, 0f3F5DB3D7;\n\t"
+    "add.f32 f32, f31, f29;\n\t"
+    "sub.f32 f33, f29, f31;\n\t"
+    "fma.rn.f32 f34, f27, 0fBF000000, %14;\n\t"
+    "sub.f32 f35, %18, %23;\n\t"
+    "mul.f32 f36, f35, 0f3F5DB3D7;\n\t"
+    "sub.f32 f37, f34, f36;\n\t"
+    "add.f32 f38, f36, f34;\n\t"
+    "add.f32 f39, %21, %26;\n\t"
+    "add.f32 f40, %15, f39;\n\t"
+    "add.f32 f41, %22, %27;\n\t"
+    "add.f32 f42, %17, f41;\n\t"
+    "fma.rn.f32 f43, f39, 0fBF000000, %15;\n\t"
+    "sub.f32 f44, %22, %27;\n\t"
+    "mul.f32 f45, f44, 0f3F5DB3D7;\n\t"
+    "add.f32 f46, f45, f43;\n\t"
+    "sub.f32 f47, f43, f45;\n\t"
+    "fma.rn.f32 f48, f41, 0fBF000000, %17;\n\t"
+    "sub.f32 f49, %21, %26;\n\t"
+    "mul.f32 f50, f49, 0f3F5DB3D7;\n\t"
+    "sub.f32 f51, f48, f50;\n\t"
+    "add.f32 f52, f50, f48;\n\t"
+    "mul.f32 f53, f46, 0f3F000000;\n\t"
+    "mul.f32 f54, f51, 0fBF5DB3D7;\n\t"
+    "sub.f32 f55, f53, f54;\n\t"
+    "mul.f32 f56, f51, 0f3F000000;\n\t"
+    "fma.rn.f32 f57, f46, 0fBF5DB3D7, f56;\n\t"
+    "mul.f32 f58, f47, 0fBF000000;\n\t"
+    "mul.f32 f59, f52, 0fBF5DB3D7;\n\t"
+    "sub.f32 f60, f58, f59;\n\t"
+    "mul.f32 f61, f52, 0fBF000000;\n\t"
+    "fma.rn.f32 f62, f47, 0fBF5DB3D7, f61;\n\t"
+    "add.f32 %1, f28, f42;\n\t"
+    "add.f32 %0, f26, f40;\n\t"
+    "add.f32 %3, f37, f57;\n\t"
+    "add.f32 %2, f32, f55;\n\t"
+    "add.f32 %5, f38, f62;\n\t"
+    "add.f32 %4, f33, f60;\n\t"
+    "sub.f32 %7, f28, f42;\n\t"
+    "sub.f32 %6, f26, f40;\n\t"
+    "sub.f32 %9, f37, f57;\n\t"
+    "sub.f32 %8, f32, f55;\n\t"
+    "sub.f32 %11, f38, f62;\n\t"
+    "sub.f32 %10, f33, f60;\n\t"
+    "}"
+     : "=f"(rmem[0].x), "=f"(rmem[0].y), "=f"(rmem[1].x), "=f"(rmem[1].y), "=f"(rmem[2].x), "=f"(rmem[2].y), "=f"(rmem[3].x), "=f"(rmem[3].y), "=f"(rmem[4].x), "=f"(rmem[4].y), "=f"(rmem[5].x), "=f"(rmem[5].y): "l"(smem), "f"(rmem[0].x), "f"(rmem[0].y), "f"(rmem[1].x), "f"(rmem[1].y), "f"(rmem[1].y), "f"(rmem[2].x), "f"(rmem[2].y), "f"(rmem[2].y), "f"(rmem[3].x), "f"(rmem[3].y), "f"(rmem[4].x), "f"(rmem[4].y), "f"(rmem[4].y), "f"(rmem[5].x), "f"(rmem[5].y));
+};
+
+
+#endif
