@@ -2,6 +2,17 @@
 // #include <cuda.h>
 #include <nvml.h>
 
+#define dugCheck(result_t, success, format, getString, operation) \
+    do {                                                          \
+        result_t status = (operation);                            \
+        if (status != success) {                                  \
+            printf("NVML ERROR: %s (%d): %s\n", __FILE__, __LINE__, getString(status));                            \
+        }                                                         \
+    } while (0)
+
+#define dugNvmlCheck(operation) dugCheck(nvmlReturn_t, NVML_SUCCESS, "%s", nvmlErrorString, operation)
+
+
 int main() { 
 
     nvmlInit();
@@ -15,8 +26,8 @@ int main() {
 
 
     unsigned int tx, rx; // throughput in KB/s
-    nvmlDeviceGetPcieThroughput(0, NVML_PCIE_UTIL_TX_BYTES, &tx);
-    nvmlDeviceGetPcieThroughput(0, NVML_PCIE_UTIL_RX_BYTES, &rx);
+    dugNvmlCheck(nvmlDeviceGetPcieThroughput(device, NVML_PCIE_UTIL_TX_BYTES, &tx));
+    dugNvmlCheck(nvmlDeviceGetPcieThroughput(device, NVML_PCIE_UTIL_RX_BYTES, &rx));
 
     printf("PCIe TX throughput: %d KB/s\n", tx);
     printf("PCIe RX throughput: %d KB/s\n", rx);
