@@ -1,0 +1,7 @@
+#!/bin/bash
+#rj nodes=1
+
+set -euo pipefail
+
+# Inherit dugio and Nemo version from prep
+
