@@ -11,7 +11,7 @@ void print_str(char *str, uint32_t size) {
         c = str[i];
         printf("%d ", c);
         i++;
-    } while (c != '\0' && i <= size);
+    } while (c != '\0' && i < size);
     printf("\n");
 }
 
@@ -41,7 +41,7 @@ void unescape_inplace(char *src, uint32_t size) {
     int out_idx = 0;
     
     char c = 'a';
-    while (c != '\0' && in_idx < size) { 
+    while (c != '\0' && in_idx < size - 1) {
         c = src[in_idx];
         in_idx++;
 
@@ -51,7 +51,8 @@ void unescape_inplace(char *src, uint32_t size) {
         src[out_idx] = c;
         out_idx++;
     }
-    src[size-1] = '\0'; 
+    printf("out_idx:%d\n", out_idx);
+    src[out_idx] = '\0';
 }
 
 int main(int argc, char **argv) { 
@@ -75,6 +76,33 @@ int main(int argc, char **argv) {
     print_str(tar, LEN);
     print_str(res, LEN);
     print_str(str2, LEN);
+
+    printf("----------------------------------------\n");
+
+    char inv[8] = "12345678";
+    char lon[8] = "ABCDEFGHIJKL";
+    char god[8] = "1234567";
+
+    printf("%8s: %s\n", "inv", inv);
+    printf("%8s: %s\n", "lon", lon);
+    printf("%8s: %s\n", "god", god);
+
+    print_str(inv, 8);
+    print_str(lon, 8);
+    print_str(god, 8);
+
+    unescape_inplace(inv, 8);
+    unescape_inplace(lon, 8);
+    unescape_inplace(god, 8);
+
+    printf("%8s: %s\n", "inv", inv);
+    printf("%8s: %s\n", "lon", lon);
+    printf("%8s: %s\n", "god", god);
+
+    print_str(inv, 8);
+    print_str(lon, 8);
+    print_str(god, 8);
+
 
     return 0;
 }
